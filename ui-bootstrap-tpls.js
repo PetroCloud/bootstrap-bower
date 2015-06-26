@@ -342,10 +342,7 @@ angular.module('ui.bootstrap.carousel', [])
       angular.extend(nextSlide, {direction: direction, active: true});
       angular.extend(self.currentSlide || {}, {direction: direction, active: false});
       if ($animate.enabled() && !$scope.noTransition && nextSlide.$element) {
-        $scope.$currentTransition = true;
-        nextSlide.$element.one('$animate:close', function closeFn() {
-          $scope.$currentTransition = null;
-        });
+        $scope.$currentTransition = null;
       }
 
       self.currentSlide = nextSlide;
@@ -2168,9 +2165,7 @@ angular.module('ui.bootstrap.modal', [])
 
         if (domEl.attr('modal-animation') && $animate.enabled()) {
           // transition out
-          domEl.one('$animate:close', function closeFn() {
-            $rootScope.$evalAsync(afterAnimating);
-          });
+          $rootScope.$evalAsync(afterAnimating);
         } else {
           // Ensure this call is async
           $timeout(afterAnimating);
